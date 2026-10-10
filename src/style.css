@@ -199,6 +199,7 @@ h2.sec { font: 600 24px/1.1 var(--f-display); color: var(--bone-hi); margin: 22p
 .c-text .rules { white-space: pre-line; }
 .c-text .rules b { font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
 .c-text .lore { margin-top: auto; font: italic calc(var(--w) * 0.05) / 1.25 var(--f-old); color: var(--ink-soft); }
+.c-text .plain + .lore { margin-top: 0; }
 .c-stat {
   position: absolute; bottom: calc(var(--w) * 0.03); min-width: calc(var(--w) * 0.17); height: calc(var(--w) * 0.15); padding: 0 calc(var(--w) * 0.02);
   display: flex; align-items: center; justify-content: center; z-index: 2;

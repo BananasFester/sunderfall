@@ -148,11 +148,14 @@ function cardHTML(id, o) {
   }
   var kw = kwLine(c), text = cardText(c);
   var typeLine = '<i class="bmark"></i>' + (c.legendary ? 'Legendary ' : '') + (c.token ? 'Token ' : '') + (c.type === 'unit' ? 'Unit' : 'Spell') + ' &middot; ' + esc(Bn.short);
-  var showLore = o.lore !== false && (kw.length + text.length) < 72;
+  // a unit with no keywords or effects still gets a line, plus its lore, so the text box is never blank
+  var plain = !kw && !text;
+  var showLore = plain || (o.lore !== false && (kw.length + text.length) < 72);
   return '<div class="' + cls + '" style="' + style + '" ' + attrs + '><div class="c-head">' + cost + '<div class="c-name">' + esc(c.name) + '</div></div>' +
     '<div class="c-art">' + Art.card(c) + '</div>' +
     '<div class="c-type"><span>' + typeLine + '</span><span class="rmark ' + c.rarity + '">' + R.name.charAt(0) + '</span></div>' +
     '<div class="c-text">' + (kw ? '<div class="kwl">' + esc(kw) + '</div>' : '') + (text ? '<div class="rules">' + rulesHTML(c) + '</div>' : '') +
+    (plain ? '<div class="rules plain">No special ability.</div>' : '') +
     (showLore ? '<div class="lore">' + esc(c.lore) + '</div>' : '') + '</div>' + stats + '</div>';
 }
 

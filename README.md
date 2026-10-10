@@ -17,7 +17,16 @@ npm install
 npm run build
 ```
 
-Then open `dist/index.html` in a browser. On a phone, host the file (for example GitHub Pages) or wrap it with Capacitor using `dist` as the web directory.
+Then open `dist/index.html` in a browser. Or wrap it with Capacitor, using `dist` as the web directory.
+
+## Play on a phone
+
+GitHub Pages serves the repo root, so https://bananasfester.github.io/sunderfall/ opens the game. The build writes `index.html`, `manifest.webmanifest` and `icons/` at the root; commit them with any source change so the live page stays current.
+
+- iPhone: open the link in Safari, tap Share, then Add to Home Screen.
+- Android: open the link in Chrome, tap the menu, then Add to Home screen (or Install app).
+
+The home-screen copy keeps its own save, separate from the browser's.
 
 ## Tests and tools
 
@@ -39,6 +48,7 @@ test/       simulations, jsdom UI tests, balance scripts, screenshot scripts
 docs/       card audit output
 licenses/   SIL Open Font License texts for the embedded fonts
 dist/       build output (not committed)
+index.html  built game for GitHub Pages (with manifest.webmanifest and icons/)
 ```
 
 See `CLAUDE.md` for architecture, card data rules, and coding conventions.

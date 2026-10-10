@@ -2,13 +2,13 @@
 
 Mobile collectible card battler (Nox Interactive catalog). Original setting: the god-star Aurelion shattered over the world of Kaedra and four banners fight over its shards. Players collect cards from packs, build 30-card decks, and fight AI opponents in a campaign, skirmishes, and a guided tutorial. PvP is planned later.
 
-Ships as **one self-contained HTML file** (no external requests, no image files) so it can be wrapped with Capacitor or hosted on GitHub Pages.
+Ships as **one self-contained HTML file** (no external requests, no image files) so it can be wrapped with Capacitor or hosted on GitHub Pages. The only extras are the home-screen icons and web manifest, which `build-icons.js` and `build.js` generate in code. The game runs without them.
 
 ## Commands
 
 ```
 npm install            # dev tools only: jsdom, acorn, acorn-walk
-npm run build          # src/ -> dist/index.html (+ dist/sunderfall.html, dist/core.test.js, dist/bundle.js)
+npm run build          # src/ -> dist/index.html (+ dist/sunderfall.html, dist/core.test.js, dist/bundle.js) and root index.html for Pages
 npm test               # build + syntax + scope check + AI sim + UI flow + tutorial flow (all must pass)
 npm run audit:cards    # per-card play rate / win rate over 1600 AI games
 npm run balance        # banner win rates (generated decks and starter decks)
@@ -79,5 +79,6 @@ Large search-and-replace edits can silently drop a function header or a `var`; t
 ## Platform notes
 
 - Capacitor: use `dist` as `webDir` (the entry is `dist/index.html`). AdMob and RevenueCat follow the existing Nox pipeline.
+- GitHub Pages serves the repo root of `main` (https://bananasfester.github.io/sunderfall/). The root `index.html`, `manifest.webmanifest` and `icons/` are build output that is committed: rebuild and commit them with every source change, or the live page goes stale. `.nojekyll` keeps Pages from running Jekyll.
 - `ui.js` contains an optional cloud-save path (`Cloud`) that only activates inside a claude.ai artifact viewer (`window.claude`). Everywhere else it does nothing and saves stay in localStorage.
 - PvP plan: the engine is deterministic given a seed and has no DOM, so the same `engine.js` can run on a server as the authority. Clients would send actions (`playCard`, `declareAttack`, `declareBlocks`, `endTurn`) and receive state.

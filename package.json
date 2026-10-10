@@ -1,0 +1,23 @@
+{
+  "name": "sunderfall",
+  "version": "0.3.0",
+  "private": true,
+  "description": "Sunderfall: a collectible card battler for mobile. Single-file HTML5 build, AI opponents, campaign, guided tutorial.",
+  "license": "UNLICENSED",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "node build.js",
+    "check": "node build.js && node --check dist/bundle.js && node test/scope.js dist/bundle.js",
+    "test": "npm run check && node test/sim.js && node test/ui-flow.js && node test/tutorial-flow.js",
+    "audit:cards": "node build.js && node test/card-stats.js 1600",
+    "balance": "node build.js && node test/banner-wr.js 40",
+    "balance:matchups": "node build.js && node test/balance.js matchups 40",
+    "campaign": "node build.js && node test/campaign-curve.js",
+    "shots": "node build.js && python test/shots.py shots && python test/tutshots.py shots"
+  },
+  "devDependencies": {
+    "acorn": "8.19.0",
+    "acorn-walk": "8.3.5",
+    "jsdom": "29.1.1"
+  }
+}

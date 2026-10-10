@@ -1,0 +1,75 @@
+# Card audit: 1600 Warlord-vs-Warlord games with generated two-banner decks. Regenerate with: npm run audit:cards
+Played 1600 games
+id   name                         ban     r  cost  inDecks  playRate  winRateWhenPlayed
+a15  Edict of Ash                 auric   R     7     1084       71%         41% WEAK
+u05  Vault Breaker                unbound U     3     1661       59%         43%
+u01  Shard Prospector             unbound C     2     1256       64%         43%
+a04  Bastion Servitor             auric   C     2      871       73%         44%
+a05  Descent Lancer               auric   C     3      934       71%         44%
+u04  Shardstone Golem             unbound C     4     1385       55%         44%
+e02  Glade Archer                 eld     C     2      765       77%         45%
+u02  Roadwarden Sellsword         unbound C     2     1247       75%         45%
+e09  Moonwell Oracle              eld     U     3      952       55%         46%
+h06  Wailing Shade                hollow  C     3      983       79%         47%
+h15  Cairn Wight                  hollow  C     5      903       83%         48%
+h08  Carrion Glutton              hollow  U     3     1117       68%         48%
+a11  Hymn of the Descent          auric   U     4      878       90%         48%
+h02  Ashen Thrall                 hollow  C     2      760       76%         49%
+e01  Moonmoth                     eld     C     1      925       84%         49%
+h03  Rot Adder                    hollow  C     2      789       66%         49%
+e07  Elder Stag                   eld     C     4     1018       88%         49%
+f10  Flame Cannoneer              forge   U     4     1067       90%         49%
+u03  Rift Stalker                 unbound C     4     1347       70%         49%
+f03  Cinderbolt                   forge   C     1      890       94%         50%
+e11  Grove Shepherd               eld     U     5      899       85%         50%
+h01  Gravecrawler                 hollow  C     1      912       80%         50%
+a10  Ash Inquisitor               auric   U     4      822       80%         50%
+h12  Bone Colossus                hollow  U     6     1316       77%         50%
+u06  Shard Hunter                 unbound U     5     1622       87%         50%
+h10  Necrovox Adept               hollow  U     4      855       77%         51%
+a13  Reliquary Knight             auric   R     4      719       75%         51%
+f02  Blast Sapper                 forge   C     2      845       78%         51%
+e05  Rootwarden                   eld     C     3      802       75%         51%
+a03  Cathedral Herald             auric   C     2      866       82%         51%
+e06  Hawk Rider                   eld     C     3      783       81%         51%
+f12  Gyro-Bombardier              forge   R     5      740       91%         51%
+a06  Litany of Steel              auric   C     1      878       93%         52%
+a12  Aegis Bearer                 auric   U     5     1125       87%         52%
+a01  Candle Acolyte               auric   C     1      896       83%         52%
+f08  Skull Drummer                forge   U     2      980       85%         52%
+h05  Siphon Soul                  hollow  C     2      782       91%         53%
+a02  Gilded Sentinel              auric   C     2      856       87%         53%
+a07  Penitent Blade               auric   C     4      714       71%         53%
+e03  Bloom                        eld     C     1      893       93%         53%
+e10  Entangling Roots             eld     U     2      887       78%         54%
+f06  Molten Volley                forge   C     3      826       76%         54%
+f05  Hammerguard                  forge   C     3      821       81%         54%
+h07  Barrow Knight                hollow  C     4      716       74%         54%
+h13  Nightwing Reaver             hollow  R     5      923       79%         54%
+a09  Choir-Captain                auric   U     3     1046       92%         54%
+f07  Shieldbreaker Berserker      forge   C     4      967       76%         54%
+f14  Forgeheart Colossus          forge   R     6     1187       85%         54%
+e08  Saplingkin                   eld     U     2      916       72%         54%
+f13  Eruption                     forge   R     5      745       58%         55%
+f01  Ironhide Runt                forge   C     1      925       88%         55%
+f16  Grukk Ironmaw, Forgelord     forge   M     6      731       89%         55%
+e14  Ancient of Whispers          eld     R     6     1271       78%         55%
+h09  Blightfog                    hollow  U     2      931       92%         55%
+f11  Ironjaw Siege-Rig            forge   U     5      901       68%         55%
+a14  Gunship Seraph               auric   R     6     1291       71%         56%
+f04  Warg Rider                   forge   C     3      804       63%         56%
+a08  Sanctified Ray               auric   C     3      915       83%         56%
+h04  Offering of Bone             hollow  C     1      903       15%         56% LOW-PLAY
+u07  Shardbound Titan             unbound R     8     2441       66%         56%
+e12  Silverwing Roc               eld     R     5      730       93%         57%
+f09  Warcry                       forge   U     3      947       66%         57%
+h14  Grave Verdict                hollow  R     4      754       89%         57%
+f15  Throwing Axe                 forge   C     2      822       87%         57%
+e16  Eldmother Ysolde             eld     M     7     1134       86%         58%
+e15  Starsong Volley              eld     C     3      847       58%         59%
+e13  Thornstorm                   eld     R     5      747       51%         60%
+e04  Wildgrowth                   eld     C     2      783       62%         60%
+h11  Dirge Choir                  hollow  R     4      699       84%         61%
+h16  Morvain, the Hollow King     hollow  M     7     1002       81%         63% STRONG
+u08  Ashmaw, Devourer of Stars    unbound M    10      683       38%         67% LOW-PLAY STRONG
+a16  Saint-Regent Aurelia         auric   M     7      820       81%         68% STRONG

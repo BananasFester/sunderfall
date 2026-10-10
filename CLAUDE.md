@@ -28,7 +28,7 @@ Open `dist/index.html` in a browser to play locally.
 | `src/engine.js` | Rules engine. Pure state + actions, seeded RNG, no DOM. Public actions: `newGame, mulligan, playCard, declareAttack, declareBlocks, endTurn`; queries like `playBlocker, attackBlocker, canBlock, targetOptions` |
 | `src/ai.js` | `AI.choose / AI.blocks / AI.mulligan` (levels 1 Squire, 2 Knight, 3 Warlord) by simulating options on `cloneState`; `AI.buildDeck` for opponent decks with rarity caps per quality |
 | `src/art.js` | Woodcut card art drawn on canvas at runtime and cached as blob URLs; falls back to a hatched placeholder when canvas is missing (jsdom). Also SVG glyphs (`GLYPH`, `kwGlyph`) |
-| `src/audio.js` | Web Audio sound effects, unlocked on first tap (iOS requirement) |
+| `src/audio.js` | Web Audio effects (`Sfx`) and generated music (`Music`: `camp` in menus, `war` in battle), unlocked on first tap. Plays through the iOS 17+ silent switch via `navigator.audioSession`. To use recorded music later, replace a `TRACKS` entry; the UI only calls `Music.play(name)` |
 | `src/tutorial.js` | Drill-Yard guided battle: fixed hands and draws (`TUT_DATA`), scripted enemy for early turns, `STEPS` with spotlight + input gating, then free play |
 | `src/ui.js` | Screens, battle view, fx playback, saves. Event delegation: elements carry `data-act` / `data-arg`, handled by the `ACT` map in one click listener |
 | `src/style.css` | All styling. Tokens in `:root` |

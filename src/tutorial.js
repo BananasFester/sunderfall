@@ -169,7 +169,7 @@ var Tut = (function () {
     root.innerHTML = html;
   }
 
-  var ALWAYS = { bmenu: 1, showLog: 1, toggleSound: 1, concede: 1, tutNext: 1, tutSkip: 1, rematch: 1, leaveBattle: 1 };
+  var ALWAYS = { bmenu: 1, showLog: 1, toggleSound: 1, toggleMusic: 1, concede: 1, tutNext: 1, tutSkip: 1, rematch: 1, leaveBattle: 1 };
 
   function allows(act, arg) {
     if (!T.on || T.free) return true;

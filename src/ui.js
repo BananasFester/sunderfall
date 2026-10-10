@@ -44,12 +44,13 @@ function roman(n) { return ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'
 /* ---------- saves ---------- */
 function freshSave() {
   return { v: 1, starter: null, aurum: 0, ash: 0, coll: {}, decks: [], active: null, camp: { cleared: 0 },
-    stats: { w: 0, l: 0 }, settings: { sound: true, tips: true }, seen: {}, newCards: {}, freePacks: 0, tutorialDone: false, savedAt: 0 };
+    stats: { w: 0, l: 0 }, settings: { sound: true, music: true, tips: true }, seen: {}, newCards: {}, freePacks: 0, tutorialDone: false, savedAt: 0 };
 }
 function normalizeSave(o) {
   var f = freshSave();
   for (var k in f) { if (f.hasOwnProperty(k) && (o[k] === undefined || o[k] === null) && k !== 'starter' && k !== 'active') o[k] = f[k]; }
   if (!o.settings) o.settings = f.settings;
+  for (k in f.settings) { if (o.settings[k] === undefined) o.settings[k] = f.settings[k]; }
   if (!o.camp) o.camp = f.camp;
   if (!Array.isArray(o.decks)) o.decks = [];
   return o;
@@ -110,6 +111,7 @@ function onRemoteSave(remote) {
     App.save = normalizeSave(remote);
     try { localStorage.setItem(SAVE_KEY, JSON.stringify(App.save)); } catch (e) { /* ignore */ }
     Sfx.setOn(App.save.settings.sound);
+    Music.setOn(App.save.settings.music);
     if (App.screen !== 'battle') render();
   } else if (App.save.starter) {
     Cloud.push(App.save);
@@ -226,6 +228,7 @@ function render() {
     case 'battle': return;
     default: html = viewHome();
   }
+  Music.play('camp');
   v.id = 'view';
   v.className = 'screen';
   v.innerHTML = html;
@@ -272,7 +275,7 @@ function viewHome() {
   ];
   if (s.tutorialDone) items.push(drill); else items.unshift(drill);
   return '<div class="bar"><h1 style="font-size:22px">Warden of the ' + esc(BANNERS[s.starter].short) + '</h1>' + wallet() +
-    '<button class="iconbtn" data-act="toggleSound" aria-label="Sound">' + (s.settings.sound ? GLYPH.sound : GLYPH.mute) + '</button></div>' +
+    '<button class="iconbtn" data-act="toggleMute" aria-label="Sound and music">' + (s.settings.sound || s.settings.music ? GLYPH.sound : GLYPH.mute) + '</button></div>' +
     '<div class="scroll"><div class="home-hero">' + (Art.hero() || '<span class="heroart ph"></span>') + '<h2 class="logo">Sunderfall</h2>' +
     '<p class="tagline">The god-star is shattered. Its shards are yours to claim.</p></div>' +
     '<div class="menu">' + items.map(function (it) {
@@ -549,6 +552,7 @@ function viewCodex() {
   } else {
     var s = App.save;
     body = '<div class="setting"><div><b>Sound</b><p>Card, combat and pack sounds.</p></div><button class="btn small" data-act="toggleSound">' + (s.settings.sound ? 'On' : 'Off') + '</button></div>' +
+      '<div class="setting"><div><b>Music</b><p>Harp in the camp, war drums in battle.</p></div><button class="btn small" data-act="toggleMusic">' + (s.settings.music ? 'On' : 'Off') + '</button></div>' +
       '<div class="setting"><div><b>Battle tips</b><p>Short hints during your first battles.</p></div><button class="btn small" data-act="toggleTips">' + (s.settings.tips ? 'On' : 'Off') + '</button></div>' +
       '<div class="setting"><div><b>Playtest Aurum</b><p>Adds 1000 Aurum for testing packs and crafting.</p></div><button class="btn small" data-act="grantAurum">+1000</button></div>' +
       '<div class="setting"><div><b>Reset progress</b><p>Erases your collection, decks and campaign on this device.</p></div><button class="btn small' + (App.armed.reset ? ' red' : '') + '" data-act="resetAll">' + (App.armed.reset ? 'Tap to erase' : 'Reset') + '</button></div>';
@@ -618,6 +622,7 @@ function later(fn, ms) {
 }
 
 function buildBattleDOM() {
+  Music.play('war');
   var v = $('view');
   v.className = 'screen';
   v.innerHTML = '<div id="battle" class="screen">' +
@@ -1017,6 +1022,7 @@ function showResult() {
   }
   sv.aurum += gold;
   persist();
+  Music.play(null);
   Sfx.play(won ? 'win' : 'lose');
   var title = won ? (ctx.kind === 'tutorial' ? 'Drill done' : 'Victory') : (s.winner === 2 ? 'Both fall' : 'Defeat');
   var line = won ? (ctx.kind === 'campaign' ? 'You take ' + CAMPAIGN[ctx.stage].name + '\'s shard.' : ctx.kind === 'tutorial' ? 'Harrow grunts. That will do. The Road is open to you.' : 'Your rival yields.') : (ctx.kind === 'tutorial' ? 'The Grave-Drill wins this round. Run it again.' : 'Your warband scatters. Regroup and try again.');
@@ -1138,6 +1144,7 @@ function openBattleMenu() {
   openModal('<div class="panel"><h3>Battle</h3><p class="muted" style="font-size:13px">Turn ' + Math.ceil(B.s.turn / 2) + ' against ' + esc(B.s.players[B.ai].name) + '.</p>' +
     '<div style="display:grid;gap:8px;margin-top:12px"><button class="btn" data-act="showLog">' + GLYPH.log + ' Battle log</button>' +
     '<button class="btn" data-act="toggleSound">' + (App.save.settings.sound ? GLYPH.sound + ' Sound on' : GLYPH.mute + ' Sound off') + '</button>' +
+    '<button class="btn" data-act="toggleMusic">' + (App.save.settings.music ? GLYPH.sound + ' Music on' : GLYPH.mute + ' Music off') + '</button>' +
     '<button class="btn' + (armed ? ' red' : '') + '" data-act="concede">' + (armed ? 'Tap again to concede' : 'Concede') + '</button>' +
     '<button class="btn primary" data-act="closeModal">Back to battle</button></div></div>', true, 'menu');
 }
@@ -1151,7 +1158,22 @@ var ACT = {
   modalBg: function (a, el, ev) { if (ev.target === el && a === '1') { closeModal(); App.armed = {}; } },
   toggleSound: function () {
     App.save.settings.sound = !App.save.settings.sound; Sfx.setOn(App.save.settings.sound); persist();
+    Sfx.unlock();
     if (App.screen === 'battle') openBattleMenu(); else render();
+    Sfx.play('tap');
+  },
+  toggleMusic: function () {
+    App.save.settings.music = !App.save.settings.music; Music.setOn(App.save.settings.music); persist();
+    Sfx.unlock();
+    if (App.screen === 'battle') openBattleMenu(); else render();
+    Sfx.play('tap');
+  },
+  // the home-screen speaker silences everything, or brings both back
+  toggleMute: function () {
+    var st = App.save.settings, on = !(st.sound || st.music);
+    st.sound = on; st.music = on; Sfx.setOn(on); Music.setOn(on); persist();
+    Sfx.unlock();
+    render();
     Sfx.play('tap');
   },
   toggleTips: function () { App.save.settings.tips = !App.save.settings.tips; if (App.save.settings.tips) App.save.seen = {}; persist(); render(); },
@@ -1414,6 +1436,7 @@ function onClick(ev) {
 function boot(data) {
   App.save = loadSave();
   Sfx.setOn(App.save.settings.sound);
+  Music.setOn(App.save.settings.music);
   Art.textures();
   $('app').addEventListener('click', onClick);
   document.addEventListener('pointerdown', function () { Sfx.unlock(); }, { passive: true });
